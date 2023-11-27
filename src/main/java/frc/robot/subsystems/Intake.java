@@ -1,17 +1,40 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
-  public Intake() {}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+
+public class Intake extends SubsystemBase {
+    
+    private TalonFX m_Intake = new TalonFX(1);
+
+    public static final DoubleSolenoid pistons = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2,3);
+
+    private final double kIntakeSpeed = 0.7;
+
+    public void intakeBall(){
+        m_Intake.set(ControlMode.PercentOutput, kIntakeSpeed);
+    }
+
+    public void outputBall(){
+        m_Intake.set(ControlMode.PercentOutput, -kIntakeSpeed);
+    }
+
+    public void pistonsExtend(){
+        pistons.set(DoubleSolenoid.Value.kForward);
+    }
+    
+    public void pistonsRetract(){
+        pistons.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+    public void togglePistons(){
+        pistons.toggle();
+    }
 }
+
