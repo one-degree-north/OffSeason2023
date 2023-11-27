@@ -22,6 +22,13 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static class IntakeConstants {
+    public static final int motorID = 0; // TODO: set
+    public static final int solenoidForwardID = 0; // TODO: set
+    public static final int solenoidBackwardID = 0; // TODO: set
+    public static final double kIntakeSpeed = 0.7;
+  }
+
   public static class SwerveConstants {
     public static final double maxSpeed = 4.5; // Meters Per Second
     public static final double maxAngularVelocity = 11.5; // Radians per Second
