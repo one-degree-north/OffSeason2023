@@ -34,6 +34,7 @@ public class Intake extends SubsystemBase {
         SupplyCurrentLimitConfiguration intakeSupplyLimit =
             new SupplyCurrentLimitConfiguration(true, 25, 40, 0.1);
         intakeTalonFXConfiguration.supplyCurrLimit = intakeSupplyLimit;
+        m_Intake.configAllSettings(intakeTalonFXConfiguration);
     }
 
 
