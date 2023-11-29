@@ -23,13 +23,18 @@ public class Intake extends SubsystemBase {
     public DoubleSolenoid pistons;
 
     public Intake() {
-        this.m_Intake = new TalonFX(IntakeConstants.motorID);
         this.revph = new PneumaticHub();
         this.pistons = revph.makeDoubleSolenoid(IntakeConstants.solenoidForwardID, IntakeConstants.solenoidBackwardID);
 
-        m_Intake.configFactoryDefault();
-        m_Intake.configAllSettings(CTREConfigs.intakeTalonFXConfiguration);
-        
+        this.m_Intake = new TalonFX(IntakeConstants.motorID);
+        configIntakeMotor();
+    }
+
+    public void configIntakeMotor() {
+        this.m_Intake.configFactoryDefault();
+        this.m_Intake.configAllSettings(CTREConfigs.intakeTalonFXConfiguration);
+        this.m_Intake.setInverted(IntakeConstants.motorInvert);
+        this.m_Intake.setNeutralMode(IntakeConstants.motorNeutralMode);
     }
 
 
