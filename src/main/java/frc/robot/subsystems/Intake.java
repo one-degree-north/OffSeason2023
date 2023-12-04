@@ -13,7 +13,8 @@ public class Intake extends SubsystemBase {
     
     private TalonFX m_Intake = new TalonFX(1);
 
-    public static final DoubleSolenoid pistons = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2,3);
+    public static final DoubleSolenoid piston1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2,3);
+    public static final DoubleSolenoid piston2 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2,3);
 
     private final double kIntakeSpeed = 0.7;
 
@@ -26,15 +27,18 @@ public class Intake extends SubsystemBase {
     }
 
     public void pistonsExtend(){
-        pistons.set(DoubleSolenoid.Value.kForward);
+        piston1.set(DoubleSolenoid.Value.kForward);
+        piston2.set(DoubleSolenoid.Value.kForward);
     }
     
     public void pistonsRetract(){
-        pistons.set(DoubleSolenoid.Value.kReverse);
+        piston1.set(DoubleSolenoid.Value.kReverse);
+        piston1.set(DoubleSolenoid.Value.kReverse);
     }
     
     public void togglePistons(){
-        pistons.toggle();
+        piston1.toggle();
+        piston2.toggle();
     }
 }
 
