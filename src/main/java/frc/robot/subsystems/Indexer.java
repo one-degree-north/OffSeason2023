@@ -12,24 +12,27 @@ public class Indexer extends SubsystemBase {
   
 
   private CANSparkMax m_Indexer = new CANSparkMax(1, MotorType.kBrushless);
-  private TalonFX m_Belt1 = new TalonFX(2);
-  private TalonFX m_Belt2 = new TalonFX(3);
+  private TalonFX m_Belt = new TalonFX(2); 
+  private TalonFX m_Storage = new TalonFX(3);
   
-  private final double intakeSpeed = 1;
+  //move this to constants
+  private final double indexerSpeed = 1;
+  private final double beltSpeed = 1;
+  private final double storageSpeed = 1;
 
-  public void index(){
-    m_Indexer.set(intakeSpeed);
+  public void beltRun(){
+    m_Belt.set(ControlMode.PercentOutput, beltSpeed);
   }
 
-  public void stopIndex(){
-    m_Indexer.set(0);
+  public void intakeRun(){
+    m_Indexer.set(indexerSpeed);
   }
 
-  public void outIndex(){
-    m_Indexer.set(-intakeSpeed);  
+  public void storageRun(){
+    m_Storage.set(ControlMode.PercentOutput, storageSpeed);
   }
 
-  public void runBelt(){
-    m_belt
+  public void beltReverseRun(){
+    m_Belt.set(ControlMode.PercentOutput, -storageSpeed);
   }
 }
