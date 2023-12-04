@@ -16,15 +16,17 @@ public class Intake extends SubsystemBase {
     // TODO: Set Can ID
     private TalonFX m_Intake;
 
+
+    public final DoubleSolenoid piston1;
+    public final DoubleSolenoid piston2;
+
     // Check ID?
     private PneumaticHub revph;
 
-    // Set port
-    public DoubleSolenoid pistons;
-
     public Intake() {
         this.revph = new PneumaticHub();
-        this.pistons = revph.makeDoubleSolenoid(IntakeConstants.solenoidForwardID, IntakeConstants.solenoidBackwardID);
+        this.piston1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2,3);
+        this.piston2 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2,3);
 
         this.m_Intake = new TalonFX(IntakeConstants.motorID);
         configIntakeMotor();
@@ -55,15 +57,18 @@ public class Intake extends SubsystemBase {
     }
 
     public void pistonsExtend(){
-        pistons.set(DoubleSolenoid.Value.kForward);
+        piston1.set(DoubleSolenoid.Value.kForward);
+        piston2.set(DoubleSolenoid.Value.kForward);
     }
     
     public void pistonsRetract(){
-        pistons.set(DoubleSolenoid.Value.kReverse);
+        piston1.set(DoubleSolenoid.Value.kReverse);
+        piston1.set(DoubleSolenoid.Value.kReverse);
     }
     
     public void togglePistons(){
-        pistons.toggle();
+        piston1.toggle();
+        piston2.toggle();
     }
 }
 
