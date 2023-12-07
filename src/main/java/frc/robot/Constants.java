@@ -25,12 +25,10 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static final int motorID = 0; // TODO: set
+    public static final int motorID = 22; // TODO: set
     public static final boolean motorInvert = false;
     public static final NeutralMode motorNeutralMode = NeutralMode.Coast;
-    public static final int solenoidForwardID = 0; // TODO: set
-    public static final int solenoidBackwardID = 0; // TODO: set
-    public static final double kIntakeSpeed = 0.7;
+    public static final double kIntakeSpeed = 0.1;
   }
 
   public static class SwerveConstants {

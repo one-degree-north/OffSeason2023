@@ -5,29 +5,48 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CTREConfigs;
 
-public class Turret extends SubsystemBase {
+public class Turret extends SubsystemBase { 
   /** Creates a new Turret. */
-  TalonFX rotationMotor;
-  TalonFX flywheelMotor;
-  TalonFX flywheelFollowerMotor;
-  public Turret(TalonFX rotationMotor, TalonFX flywheelMotor, TalonFX flywheelFollowerMotor) {
-    this.rotationMotor = rotationMotor;
-    this.flywheelMotor = flywheelMotor;
-    this.flywheelFollowerMotor = flywheelFollowerMotor;
+  TalonFX rotationMotor = new TalonFX(14);
+  TalonFX flywheelMotor = new TalonFX(26);
+  private final double flywheelSpeed = 0.1;
+  private final double turretSpeed = 0.1;
+
+  public Turret() {
+
   }
 
-  public void setFlywheel(double speed){
-    flywheelMotor.set(ControlMode.PercentOutput, speed);
-    flywheelFollowerMotor.set(ControlMode.PercentOutput, speed);
+  public void configMotors() {
+
+    this.rotationMotor.configFactoryDefault();
+    this.rotationMotor.configAllSettings(CTREConfigs.config30A);
+    this.rotationMotor.setInverted(false);
+    this.rotationMotor.setNeutralMode(NeutralMode.Coast);
+
+    this.flywheelMotor.configAllSettings(CTREConfigs.config30A);
+    this.flywheelMotor.configFactoryDefault();
+    this.flywheelMotor.setInverted(false);
+    this.flywheelMotor.setNeutralMode(NeutralMode.Coast);
   }
 
-  public void rotateTurret(double speed){
-    rotationMotor.set(ControlMode.PercentOutput, speed);
+  public void runFlywheel(){
+    flywheelMotor.set(ControlMode.PercentOutput, flywheelSpeed);
   }
+  public void stopFlywheel(){
+    flywheelMotor.set(ControlMode.PercentOutput, 0);
+  }
+
+  // CW should be "forward" (makes more sense intuitively)
+  public void runTurretCW(double input){
+    rotationMotor.set(ControlMode.PercentOutput, input*turretSpeed);
+  }
+
 
   @Override
   public void periodic() {

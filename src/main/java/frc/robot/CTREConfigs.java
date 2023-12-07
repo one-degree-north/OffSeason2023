@@ -10,13 +10,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 /** Add your docs here. */
 public final class CTREConfigs {
-    public static TalonFXConfiguration intakeTalonFXConfiguration;
+    public static TalonFXConfiguration config30A;
     public CTREConfigs() {
-        intakeTalonFXConfiguration = new TalonFXConfiguration();
+        config30A = new TalonFXConfiguration();
 
-        SupplyCurrentLimitConfiguration intakeSupplyLimit = new SupplyCurrentLimitConfiguration(true, 25, 40, 0.1);
+        SupplyCurrentLimitConfiguration suppLimit30A = new SupplyCurrentLimitConfiguration(true, 25, 40, 0.1);
 
-        intakeTalonFXConfiguration.supplyCurrLimit = intakeSupplyLimit;
+        config30A.supplyCurrLimit = suppLimit30A;
 
     }
     
