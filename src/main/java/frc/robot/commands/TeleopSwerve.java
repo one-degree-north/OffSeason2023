@@ -39,7 +39,8 @@ public class TeleopSwerve extends CommandBase {
         /* Get Values, Deadband*/
         double translation = slewRateLimiterX.calculate(translationSup.getAsDouble());
         double strafe = slewRateLimiterY.calculate(strafeSup.getAsDouble());
-        double rotation = slewRateLimiterR.calculate(rotationSup.getAsDouble());
+        // double rotation = slewRateLimiterR.calculate(rotationSup.getAsDouble());
+        double rotation = rotationSup.getAsDouble();
 
         double translationVal = MathUtil.applyDeadband(translation, Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafe, Constants.stickDeadband);

@@ -13,7 +13,7 @@ public class Indexer extends SubsystemBase {
   
 
   private CANSparkMax m_Indexer = new CANSparkMax(50, MotorType.kBrushless);
-  private TalonFX m_Belt = new TalonFX(1); 
+  private TalonFX m_Belt = new TalonFX(52); 
   private TalonFX m_Storage = new TalonFX(4);
   
   //move this to constants

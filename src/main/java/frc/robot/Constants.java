@@ -26,7 +26,7 @@ public final class Constants {
 
   public static class IntakeConstants {
     public static final int motorID = 22; // TODO: set
-    public static final boolean motorInvert = false;
+    public static final boolean motorInvert = true;
     public static final NeutralMode motorNeutralMode = NeutralMode.Coast;
     public static final double kIntakeSpeed = 0.1;
   }
