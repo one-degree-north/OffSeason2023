@@ -15,10 +15,12 @@ public class Turret extends SubsystemBase {
   /** Creates a new Turret. */
   TalonFX rotationMotor = new TalonFX(14);
   TalonFX flywheelMotor = new TalonFX(26);
-  private final double flywheelSpeed = 0.1;
+  TalonFX flywheelSlave = new TalonFX(31);
+  private final double flywheelSpeed = 1;
   private final double turretSpeed = 0.1;
 
   public Turret() {
+    configMotors();
 
   }
 
@@ -29,10 +31,17 @@ public class Turret extends SubsystemBase {
     this.rotationMotor.setInverted(false);
     this.rotationMotor.setNeutralMode(NeutralMode.Coast);
 
-    this.flywheelMotor.configAllSettings(CTREConfigs.config30A);
     this.flywheelMotor.configFactoryDefault();
-    this.flywheelMotor.setInverted(false);
+    this.flywheelMotor.configAllSettings(CTREConfigs.config30A);
+    this.flywheelMotor.setInverted(true);
     this.flywheelMotor.setNeutralMode(NeutralMode.Coast);
+
+    this.flywheelSlave.configAllSettings(CTREConfigs.config30A);
+    this.flywheelSlave.configFactoryDefault();
+    this.flywheelSlave.setInverted(false);
+    this.flywheelSlave.setNeutralMode(NeutralMode.Coast);
+
+    flywheelSlave.follow(flywheelMotor);
   }
 
   public void runFlywheel(){
@@ -45,6 +54,13 @@ public class Turret extends SubsystemBase {
   // CW should be "forward" (makes more sense intuitively)
   public void runTurretCW(double input){
     rotationMotor.set(ControlMode.PercentOutput, input*turretSpeed);
+  }
+
+  public void runTurretCCW(double input){
+    rotationMotor.set(ControlMode.PercentOutput, -input*turretSpeed);
+  }
+  public void stopTurret(){
+    rotationMotor.set(ControlMode.PercentOutput, 0);
   }
 
 

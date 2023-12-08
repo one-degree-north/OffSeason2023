@@ -17,9 +17,12 @@ public class Indexer extends SubsystemBase {
   private TalonFX m_Storage = new TalonFX(4);
   
   //move this to constants
-  private final double indexerSpeed = 0.1;
-  private final double beltSpeed = 0.1;
-  private final double storageSpeed = 0.1;
+  private final double indexerSpeed = 1;
+  private final double beltSpeed = 0.3;
+  private final double storageSpeed = 1;
+  public Indexer() {
+    configMotors();
+  }
 
   public void configMotors() {
     this.m_Indexer.restoreFactoryDefaults();
@@ -34,7 +37,7 @@ public class Indexer extends SubsystemBase {
 
     this.m_Storage.configFactoryDefault();
     this.m_Storage.configAllSettings(CTREConfigs.config30A);
-    this.m_Storage.setInverted(false);
+    this.m_Storage.setInverted(true);
     this.m_Storage.setNeutralMode(NeutralMode.Coast);
 }
   public void defaultRun() {

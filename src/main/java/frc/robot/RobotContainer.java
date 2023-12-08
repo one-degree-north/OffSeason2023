@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -53,6 +54,10 @@ public class RobotContainer {
   private final JoystickButton pistonExtend = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
   private final JoystickButton pistonRetract = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
+  private final Trigger turretLeft = new POVButton(driver, 270);
+  private final Trigger turretRight = new POVButton(driver, 90);
+
+
   private final JoystickButton flexibleButton = new JoystickButton(driver, XboxController.Button.kA.value);
   
   private final Command toggleIntake = new InstantCommand(() -> s_Intake.toggleIntake());
@@ -64,6 +69,9 @@ public class RobotContainer {
     new InstantCommand(() -> s_Indexer.shootRun()), 
     new InstantCommand(() -> s_Turret.runFlywheel())
   );
+  private final Command stopAll = new ParallelCommandGroup(
+    new InstantCommand(() -> s_Indexer.stopAll()),
+    new InstantCommand(() -> s_Turret.stopFlywheel()));
     
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -94,8 +102,13 @@ public class RobotContainer {
     pistonExtend.onTrue(new InstantCommand(() -> s_Intake.pistonsExtend()));
     pistonRetract.onTrue(new InstantCommand(() -> s_Intake.pistonsRetract()));
 
-    flexibleButton.onTrue(new InstantCommand(() -> s_Intake.intakeBall()));
-    flexibleButton.onFalse(new InstantCommand(() -> s_Intake.stopMotor()));
+    turretLeft.onTrue(new InstantCommand(() -> s_Turret.runTurretCCW(1)));
+    turretLeft.onFalse(new InstantCommand(() -> s_Turret.stopTurret()));
+    turretRight.onTrue(new InstantCommand(() -> s_Turret.runTurretCW(1)));
+    turretRight.onFalse(new InstantCommand(() -> s_Turret.stopTurret()));
+
+    flexibleButton.onTrue(shoot);
+    flexibleButton.onFalse(stopAll);
 
   }
 
