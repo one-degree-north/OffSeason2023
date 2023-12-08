@@ -59,6 +59,7 @@ public class RobotContainer {
 
 
   private final JoystickButton flexibleButton = new JoystickButton(driver, XboxController.Button.kA.value);
+  private final JoystickButton intakeButton = new JoystickButton(driver, XboxController.Button.kB.value);
   
   private final Command toggleIntake = new InstantCommand(() -> s_Intake.toggleIntake());
   private final Command defaultIndex = new ParallelCommandGroup(
@@ -70,8 +71,13 @@ public class RobotContainer {
     new InstantCommand(() -> s_Turret.runFlywheel())
   );
   private final Command stopAll = new ParallelCommandGroup(
+    new InstantCommand(() -> s_Intake.stopMotor()),
     new InstantCommand(() -> s_Indexer.stopAll()),
     new InstantCommand(() -> s_Turret.stopFlywheel()));
+
+    private final Command defaultIntake = new ParallelCommandGroup(
+      defaultIndex, 
+      new InstantCommand(() -> s_Intake.intakeBall()));
     
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -109,6 +115,9 @@ public class RobotContainer {
 
     flexibleButton.onTrue(shoot);
     flexibleButton.onFalse(stopAll);
+
+    intakeButton.onTrue(defaultIntake);
+    intakeButton.onFalse(stopAll);
 
   }
 

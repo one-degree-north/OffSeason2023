@@ -28,7 +28,7 @@ public final class Constants {
     public static final int motorID = 22; // TODO: set
     public static final boolean motorInvert = true;
     public static final NeutralMode motorNeutralMode = NeutralMode.Coast;
-    public static final double kIntakeSpeed = 0.1;
+    public static final double kIntakeSpeed = 0.4;
   }
 
   public static class SwerveConstants {
